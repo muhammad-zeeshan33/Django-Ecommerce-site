@@ -1,0 +1,66 @@
+<div class="header-inner">
+    <div class="container">
+        <div class="cat-nav-head">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="all-category">
+                        <h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3>
+                        <ul class="main-category">                 
+                            {% for category in categories %}
+                                <li><a href="{% url 'category' category.id %}">{{category.category_name}}</a></li>                            
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-12">
+                    <div class="menu-area">
+                        <!-- Main Menu -->
+                        <nav class="navbar navbar-expand-lg">
+                            <div class="navbar-collapse">	
+                                <div class="nav-inner">	
+                                    <ul class="nav main-menu menu navbar-nav">
+                                            <li 
+                                                {% if '/' == request.path %}
+                                                    class="active"
+                                                {% else %}
+                                                    class=""
+                                                {% endif %}
+                                            >
+                                            <a href="{%url 'index'%}">Home</a>
+                                            </li>
+                                            <li><a href="#">Product</a></li>												
+                                            <li><a href="#">Service</a></li>
+                                            <li
+                                                {% if 'shop' in request.path %}
+                                                    class="active"
+                                                {% else %}
+                                                    class=""
+                                                {% endif %}
+                                            ><a href="{% url 'shop' %}">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+                                                <ul class="dropdown">
+                                                    <li><a href="{% url 'shop' %}">Shop Grid</a></li>
+                                                    <li><a href="{% url 'cart' %}">Cart</a></li>
+                                                    <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                                                </ul>
+                                            </li>                                            
+                                            <li><a href="{% url 'blogs' %}">Blog</a>                                                
+                                            </li>
+                                            <li
+                                            {% if 'contact' in request.path %}
+                                            class="active"
+                                            {% else %}
+                                                class=""
+                                            {% endif %}
+                                            ><a href="{% url 'contact' %}">Contact Us</a></li>
+                                        </ul>
+                                </div>
+                            </div>
+                        </nav>
+                        <!--/ End Main Menu -->	
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

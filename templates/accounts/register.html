@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Start Contact -->
+<section id="contact-us" class="contact-us section">
+    <div class="container">
+            <div class="contact-head">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 col-12">
+                        <div class="form-main">
+                            <div class="title text-center">
+                                <h4>Register now. Its free!</h4>
+                                <h3>Write us a message</h3>
+                            </div>
+                            {% include 'partials/_alerts.html' %}
+                            <form class="form" method="POST" action="{% url 'register' %}">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label>First Name<span>*</span></label>
+                                            <input name="fname" type="text" placeholder="First Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label>Last Name<span>*</span></label>
+                                            <input name="lname" type="text" placeholder="Last Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label>Username<span>*</span></label>
+                                            <input name="username" type="text" placeholder="Username" required>
+                                        </div>	
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <label>Email<span>*</span></label>
+                                            <input name="email" type="email" placeholder="Email" required>
+                                        </div>	
+                                    </div>
+                                    <div class="col-lg-6 col-12 ">
+                                        <div class="form-group message">
+                                            <label>Password<span>*</span></label>
+                                            <input name="password" type="password" placeholder="Password" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12 ">
+                                        <div class="form-group message">
+                                            <label>Confirm Password<span>*</span></label>
+                                            <input name="password2" type="password" placeholder="Confirm password" required>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div class="checkbox">
+                                            <label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> By signing up you will be agree to our <a href="#"> <u> Terms of Services </u></a> and <a href="#"> <u> Privacy Policy </u></a> </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="form-group button">
+                                            <button type="submit" class="btn btn-block">Register    </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>        
+                </div>
+                <p class="text-center mt-4">Already registered? <a href="{% url 'login' %}"> <u> Login here </u></a></p>
+            </div>
+        </div>
+</section>
+<!--/ End Contact -->
+
+{% endblock %}

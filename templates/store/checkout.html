@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="bread-inner">
+							<ul class="bread-list">
+								<li><a href="{% url 'index' %}">Home<i class="ti-arrow-right"></i></a></li>
+								<li class="active"><a href="{% url 'checkout' %}">Checkout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+				
+		<!-- Start Checkout -->
+		<section class="shop checkout section">
+			<div class="container">
+				<div class="row"> 
+					<div class="col-lg-8 col-12">
+						<div class="checkout-form">
+							<h2>Make Your Checkout Here</h2>
+							<p>Please register in order to checkout more quickly</p>
+							<!-- Form -->
+							<form class="form" id="shipping-info">
+                                {% csrf_token %}                                
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>First Name<span>*</span></label>
+											<input type="text" name="fname" id="fname" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Last Name<span>*</span></label>
+											<input type="text" name="lname" id="lname" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Email Address<span>*</span></label>
+											<input type="email" name="email" id="email" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Phone Number<span>*</span></label>
+											<input type="number" name="number" id="phone" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>City<span>*</span></label>
+											<input type="text" name="city" id="city">                                                																							
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>State / Divition<span>*</span></label>
+											<select name="state" id="state">
+												<option value="#" disabled selected>Select your state</option>
+												{% for key,value in state_choices.items %}
+                                                    <option value="{{key}}">{{value}}</option>
+                                                {% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Address Line 1<span>*</span></label>
+											<input type="text" name="address1" id="address1" placeholder="" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Address Line 2<span>*</span></label>
+											<input type="text" name="address2" placeholder="" id="address2" required="required">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<div class="form-group">
+											<label>Postal Code<span>*</span></label>
+											<input type="text" name="zipcode" placeholder="" required="required" id="zipcode">
+										</div>
+									</div>									
+                                    <input id="total"  type="hidden" value={{order.get_cart_total}} name="total">								
+								</div>
+							</form>
+							<!--/ End Form -->                                                  
+						</div>
+                        <div id="payment" class="d-none text-center mt-5 py-5">
+                            <h2>Payment Menu</h2>
+                            <p>Please Click below button to make your payment</p>
+							<div class="button">
+								<form action="{% url 'create-checkout-session' %}" method="POST">
+									{% csrf_token %}
+									<input type="hidden"  name="orderid" value="{{order.id}}">
+									<button  type="submit" class="btn" >Proceed to Payment</button>
+								</form>
+							</div>
+                           
+                        </div>     
+					</div>
+					<div class="col-lg-4 col-12">
+						<div class="order-details">
+							<!-- Order Widget -->
+							<div class="single-widget">
+								<h2>CART  TOTALS</h2>
+								<div class="content">
+									<ul>
+										<li>Sub Total<span>${{order.get_cart_total|floatformat:2}}</span></li>
+										<li>(+) Shipping<span>Free</span></li>
+										<li class="last">Total<span>${{order.get_cart_total|floatformat:2}}</span></li>
+									</ul>
+								</div>
+							</div>
+							<!--/ End Order Widget -->
+							<!-- Order Widget -->
+							<div class="single-widget">
+								<h2>Payments</h2>
+								<div class="content">
+									<div class="checkbox">
+										<label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label>
+										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Cash On Delivery</label>
+										<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox"> PayPal</label>
+									</div>
+								</div>
+							</div>
+							<!--/ End Order Widget -->
+							<!-- Payment Method Widget -->
+							<div class="single-widget payement">
+								<div class="content">
+									<img src="{% static 'images/payment-method.png' %}" alt="#">
+								</div>
+							</div>
+							<!--/ End Payment Method Widget -->
+							<!-- Button Widget -->
+							<div class="single-widget get-button">
+								<div class="content">
+									<div class="button">
+										<a  id="checkout" class="btn">proceed to checkout</a>
+									</div>
+								</div>
+							</div>
+							<!--/ End Button Widget -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Checkout -->
+		
+		<!-- Start Shop Services Area  -->
+		<section class="shop-services section home">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-rocket"></i>
+							<h4>Free shiping</h4>
+							<p>Orders over $100</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-reload"></i>
+							<h4>Free Return</h4>
+							<p>Within 30 days returns</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-lock"></i>
+							<h4>Sucure Payment</h4>
+							<p>100% secure payment</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-tag"></i>
+							<h4>Best Peice</h4>
+							<p>Guaranteed price</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Shop Services -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var firstname = '{{request.user.first_name}}'
+            var lastname = '{{request.user.last_name}}'
+            var useremail = '{{request.user.email}}'
+            var fname = document.getElementById('fname')
+            var lname = document.getElementById('lname')
+            var email = document.getElementById('email')
+            if(user != 'AnonymousUser'){
+                fname.setAttribute("readonly", "readonly");
+                lname.setAttribute("readonly", "readonly");
+                email.setAttribute("readonly", "readonly");
+                fname.value=firstname
+                lname.value=lastname
+                email.value=useremail
+            }
+
+            var checkout =  document.getElementById('checkout')
+            var makePayment= document.getElementById('makePayment')
+            checkout.addEventListener('click', function(){
+
+                var payment = document.getElementById('payment')
+                var shippingInfo=document.getElementById('shipping-info')
+                var checkoutForm=document.querySelector('.checkout-form')
+                checkoutForm.classList.add('d-none')
+                payment.classList.remove('d-none')
+				checkout.classList.add('d-none')
+				processUserOrder()
+            })
+            
+                                
+            function processUserOrder(){  
+                var fname = document.getElementById('fname').value;
+                var lname = document.getElementById('lname').value;
+                var email = document.getElementById('email').value;
+                var phone = document.getElementById('phone').value;
+                var city = document.getElementById('city').value;
+                var state = document.getElementById('state').value;
+                var address1 = document.getElementById('address1').value;
+                var address2 = document.getElementById('address2').value;
+                var zipcode = document.getElementById('zipcode').value;
+                var total = document.getElementById('total').value;
+                var url= 'http://127.0.0.1:8000/store/processOrder';
+            
+                fetch(url, {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body:JSON.stringify({'fname': fname, 'lname': lname, 'email': email, 'phone': phone, 'city': city, 'state':state, 'address': address1, 'zipcode': zipcode, 'total': total})
+                })            
+                .then((response) => response.json())
+            
+                .then((data) =>{
+                    console.log('Success:', data);                                                
+                })                
+            }
+        </script>
+{% endblock %}

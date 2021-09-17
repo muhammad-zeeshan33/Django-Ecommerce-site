@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">
+                    <ul class="bread-list">
+                        <li><a href="{% url 'index' %}">Home<i class="ti-arrow-right"></i></a></li>
+                        <li class="active"><a href="{% url 'shop' %}">Shop Grid</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
+<!-- Product Style -->
+<section class="product-area shop-sidebar shop section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-12">
+                <div class="shop-sidebar">
+                        <!-- Single Widget -->
+                        <div class="single-widget category">
+                            <h3 class="title">Categories</h3>
+                            <ul class="categor-list">
+                                {% for category in categories %}
+                                    <li><a href="#" >{{category.category_name}}</a></li>
+                                {% endfor %}                                
+                            </ul>
+                        </div>
+                        <!--/ End Single Widget -->                   
+                        <!-- Single Widget -->
+                        <div class="single-widget recent-post">
+                            <h3 class="title">Recent post</h3>
+                            <!-- Single Post -->
+                            {% for blog in blogs %}
+                                    <div class="single-post first">
+                                        <div class="image">
+                                            <img src="{{blog.image.url}}" style="max-width: 60px; max-height: 60px; object-fit:cover" alt="#">
+                                        </div>
+                                        <div class="content">
+                                            <h5><a href="{% url 'blog' blog.id %}">{{blog.title|truncatewords:4}}</a></h5>
+                                            <p class="price"><i class="fa fa-commenting-o"></i> {{blog.get_comments}}</p>
+                                            <ul class="reviews">
+                                                <li class="yellow"><i class="ti-star"></i></li>
+                                                <li class="yellow"><i class="ti-star"></i></li>
+                                                <li class="yellow"><i class="ti-star"></i></li>
+                                                <li><i class="ti-star"></i></li>
+                                                <li><i class="ti-star"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                            
+                           
+                        </div>
+                        <!--/ End Single Widget -->
+                        <!-- Single Widget -->
+                        <div class="single-widget category">
+                            <h3 class="title">Manufacturers</h3>
+                            <ul class="categor-list">
+                                <li><a href="#">Forever</a></li>
+                                <li><a href="#">giordano</a></li>
+                                <li><a href="#">abercrombie</a></li>
+                                <li><a href="#">ecko united</a></li>
+                                <li><a href="#">zara</a></li>
+                            </ul>
+                        </div>
+                        <!--/ End Single Widget -->
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Shop Top -->
+                        <div class="shop-top">
+                            <div class="shop-shorter">
+                                <div class="single-shorter">
+                                    <label>Show :</label>
+                                    <select>
+                                        <option selected="selected">09</option>
+                                        <option>15</option>
+                                        <option>25</option>
+                                        <option>30</option>
+                                    </select>
+                                </div>
+                                <div class="single-shorter">
+                                    <label>Sort By :</label>
+                                    <select>
+                                        <option selected="selected">Name</option>
+                                        <option>Price</option>
+                                        <option>Size</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <ul class="view-mode">
+                                <li class="active"><a href="shop-grid.html"><i class="fa fa-th-large"></i></a></li>
+                                <li><a href="shop-list.html"><i class="fa fa-th-list"></i></a></li>
+                            </ul>
+                        </div>
+                        <!--/ End Shop Top -->
+                    </div>
+                </div>
+                <div class="row">
+                    {% if products %}
+                        {% for product in products %}
+                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                <div class="single-product" >
+                                    <div class="product-img" style="width: 200px !important; height: 350px !important; object-fit: cover !important;">
+                                        <a href="{% url 'product' product.id  %}">
+                                            <img class="" src="{{product.photo_main.url}}" width="550" height="750" alt="#">
+                                            <img class="hover-img" src="{{product.photo_main.url}}" width="550" height="750" alt="#">
+                                            {% if product.is_new %}
+                                                <span class="new">New</span>
+                                            {% endif %}
+                                            {% if product.discount > 0 %}
+                                                <span class="price-dec">{{product.discount}}% Off</span>
+                                            {% endif %}
+                                            {% if product.is_hot %}
+                                                <span class="out-of-stock">Hot</span>																																																			
+                                            {% endif %}
+
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+                                            </div>
+                                            <div class="product-action-2">
+                                                <button style="background: none; border:none;" data-product={{product.id}}  data-action="add" title="Add to cart" class="update-cart" >Add to cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="{% url 'product' product.id %}">{{product.name}}</a></h3>
+                                        <div class="product-price">
+                                            {% if product.discount > 0 %}
+                                            <span class="old">{{product.old_price|floatformat:2}}</span>
+                                            {% endif %}
+                                            <span>${{product.unitprice}}</span>																	
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <p class="text-center">No items Available</p>
+                        </div>         
+                    {% endif %}                                 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ End Product Style 1  -->	
+
+<!-- Start Shop Newsletter  -->
+<section class="shop-newsletter section">
+    <div class="container">
+        <div class="inner-top">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-12">
+                    <!-- Start Newsletter Inner -->
+                    <div class="inner">
+                        <h4>Newsletter</h4>
+                        <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                            <input name="EMAIL" placeholder="Your email address" required="" type="email">
+                            <button class="btn">Subscribe</button>
+                        </form>
+                    </div>
+                    <!-- End Newsletter Inner -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Shop Newsletter -->
+
+{% endblock %}

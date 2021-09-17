@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+ <!-- Start Contact -->
+ <section id="contact-us" class="contact-us section">
+    <div class="container">
+            <div class="contact-head">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3 col-12">
+                        <div class="form-main">
+                            <div class="title text-center">
+                                <h4>Enjoy our free resources!</h4>
+                                <h3>Login</h3>
+                            </div>
+                            {% include 'partials/_alerts.html' %}
+                            <form class="form" method="POST" action="{% url 'login' %}">
+                                {% csrf_token %}
+                                <div class="row">                                    
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Your Username<span>*</span></label>
+                                            <input name="username" type="text" placeholder="Username" required>
+                                        </div>	
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Your Password<span>*</span></label>
+                                            <input name="password" type="password" placeholder="Password" required>
+                                        </div>	
+                                    </div>                                  
+                                    <div class="col-12">
+                                        <div class="form-group button">
+                                            <button type="submit" class="btn">Login</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>       
+                    
+                </div>
+                <p class="text-center mt-4">Don't have an account? <a href="{% url 'register' %}"> <u> Register here </u></a></p>
+            </div>
+        </div>
+        
+</section>
+<!--/ End Contact -->
+
+
+{% endblock %}

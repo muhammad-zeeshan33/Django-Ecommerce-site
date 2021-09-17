@@ -1,0 +1,113 @@
+{% load static %}
+<div class="middle-inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-12">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+                </div>
+                <!--/ End Logo -->
+                <!-- Search Form -->
+                <div class="search-top">
+                    <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
+                    <!-- Search Form -->
+                    <div class="search-top">
+                        <form class="search-form">
+                            <input type="text" placeholder="Search here..." name="search">
+                            <button value="search" type="submit"><i class="ti-search"></i></button>
+                        </form>
+                    </div>
+                    <!--/ End Search Form -->
+                </div>
+                <!--/ End Search Form -->
+                <div class="mobile-nav"></div>
+            </div>
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="search-bar-top">
+                    <div class="search-bar">
+                        <form method="GET" action="{% url 'search' %}" class="d-flex">
+                            <select name="category" >
+                                <option selected="selected" >{{values.category}}</option>
+                                <option disabled>All Category</option>
+                                {% for category in categories %}
+                                     <option value="{{category.category_name}}">{{category.category_name}}</option>                                                        
+                                {% endfor %}
+                            </select>
+                            <input name="search" placeholder="Search Products Here....." value="{{values.search}}" type="search">
+                            <button class="btnn"><i class="ti-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-12">
+                <div class="right-bar">
+                    <!-- Search Form -->
+                    <div class="sinlge-bar">
+                        <a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="sinlge-bar shopping">
+                            <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                            <div class="shopping-item">                                                               
+                                <div class="bottom">
+                                    <div>
+                                        <div class="d-flex text-left mb-2">
+                                            <span class="font-weight-bold">Name</span>
+                                            <span class="total-amount ml-auto">{{user.first_name}} {{ user.last_name}}</span>
+                                        </div>                                      
+                                        <div class="d-flex text-left mb-2">
+                                            <span class="font-weight-bold">Username</span>
+                                            <span class="total-amount ml-auto">{{user.username}}</span>
+                                        </div>
+                                        <div class="d-flex text-left mb-2">
+                                            <span class="font-weight-bold">Email</span>
+                                            <span class="total-amount ml-auto">{{user.email}}</span>
+                                        </div>                                        
+                                    </div>
+                                    <a href="javascript:{document.getElementById('logout').submit()}" class="btn btn-sm animate">Logout</a>
+                                    <form id="logout" method="POST" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="sinlge-bar shopping">
+                        <a href="#" class="single-icon"><i class="ti-bag"></i>{% if order.get_cart_items %} <span class="total-count">{{order.get_cart_items}}</span>{% endif %}</a>
+                        <!-- Shopping Item -->
+                        <div class="shopping-item">
+                            <div class="dropdown-cart-header">
+                                <span>{{order.get_cart_items}} items</span>
+                                <a href="{% url 'cart' %}">View Cart</a>
+                            </div>
+                            <ul class="shopping-list">
+                                {% if items %}
+                                    {% for item in items %}
+                                        <li>
+                                            <button  class="remove update-cart" data-product={{item.product.id}} data-action="remove"  title="Remove this item"><i class="fa fa-remove"></i></button>
+                                            <a class="cart-img" href="#"><img style="max-width: 60; max-height: 50; object-fit:cover;" src="{{item.product.photo_main.url}}" alt="#"></a>
+                                            <h4><a href="#">{{item.product.name}}</a></h4>
+                                            <p class="quantity">{{item.quantity}}x - <span class="amount">${{item.get_total|floatformat:2}}</span></p>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                <p class="text-center">Nothing to show</p>
+                                {% endif %}                               
+                            </ul>
+                            <div class="bottom">
+                                <div class="total">
+                                    <span>Total</span>
+                                    <span class="total-amount">${{order.get_cart_total|floatformat:2}}</span>
+                                </div>
+                                <a href="{% url 'checkout' %}" class="btn animate">Checkout</a>
+                            </div>
+                        </div>
+                        <!--/ End Shopping Item -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

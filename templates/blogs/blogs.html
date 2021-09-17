@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+<section id="blogs" class="py-5">
+    <div class="container">
+        <div class="row ">
+            {% for blog in blogs %}
+            <div class="col-6 mt-4">
+                <div class="card ">
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="{{blog.image.url}}" alt="" class="img-fluid">                
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-12 px-5 py-5">
+                                <h5>{{blog.title}}</h5>
+                                <p class="mb-4">{{blog.body|truncatewords:50}} <a href="#"> <u> readmore</a> </u> </p>                                
+                                <div class="d-flex ">
+                                    <p class="text-muted">Author: <span class="text-muted">{{blog.author.first_name}} {{blog.author.last_name}}</span></p>
+                                    <span class="text-muted ml-auto">{{blog.created | timesince}} ago</span>                 
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                 
+            {% endfor %}                                         
+        </div>
+    </div>
+</section>
+{% endblock %}

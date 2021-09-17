@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5 text-center">
+    <div class="container">
+        <div class="row">
+            {% if payment_status == 'success' %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Order Confirmed</h4>
+                            <p>Thank you for using us</p>
+                            <p>You order is confirmed and is under process by our team. we'll inform you about the updates via mail.</p>
+                            <a href="{% url 'shop' %}" class="btn text-white mt-3">Back to Shop</a>
+                        </div>
+                    </div>    
+                </div>    
+            {% else %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Order Cancelled</h4>
+                            <p>Try again in a few seconds</p>
+                            <a href="{% url 'checkout' %}" class="btn text-white">Try again now</a>
+                        </div>
+                    </div>    
+                </div>    
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Slider Area -->
+	{% include 'partials/_alerts.html' %}
+	<section class="hero-slider ">
+		{% for slide in slider %}
+		<div class=" bg-white">
+			<div class="container">
+				<div class="row no-gutters">
+					<div class="col-lg-7 offset-lg-2 col-12">
+						<div class="text-inner">
+							<div class="row">
+								<div class="col-lg-7 col-12">
+									<div class="hero-text">
+										<h1><span>UP TO {{slide.discount}}% OFF </span>{{slide.name}}</h1>
+										<p>{{slide.description}}</p>
+										<div class="button">
+											<a href="{% url 'product' slide.id %}" class="btn">Shop Now!</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 d-none d-lg-block">
+						<img src="{{ slide.photo_main.url }}" class="img-fluid mt-5"  alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</section>
+	<!--/ End Slider Area -->
+	
+	<!-- Start Small Banner  -->
+	<section class="small-banner section">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Single Banner  -->
+				{% if mens %}
+					{% for men in mens %}
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="single-banner">
+							<img src="{{ men.photo_main.url }}" alt="#">
+							<div class="content">
+								<p>Man's Collectons</p>
+								<h3>Summer travel <br> collection</h3>
+								<a href="#">Discover Now</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{% endif %}
+				
+				{% if womens %}
+					{% for women in womens %}
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="single-banner">
+							<img src="{{ women.photo_main.url }}" alt="#">
+							<div class="content">
+								<p>{{women.name}}</p>
+								<h3>Awesome Womens wears <br> 2020</h3>
+								<a href="#">Shop Now</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{% endif %}
+
+				{% if footwears %}
+					{% for footwear in footwears %}
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="single-banner">
+							<img src="{{ footwear.photo_main.url }}" width="300" alt="#">
+							<div class="content">
+								<p>Flash Sale</p>
+								<h3>Mid Season <br> {% if footwear.discount > 0 %} Up to <span>{{footwear.discount}}%</span> Off{% endif %}</h3>
+								<a href="#">Discover Now</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!-- End Small Banner -->
+	
+	<!-- Start Product Area -->
+    <div class="product-area section">
+            <div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title">
+							<h2>Trending Item</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="product-info">							
+							<div class="tab-content" id="myTabContent">
+								<!-- Start Single Tab -->
+								<div class="tab-pane fade show active" id="man" role="tabpanel">
+									<div class="tab-single">
+										<div class="row">
+											{% if products %}
+												{% for product in products %}
+													<div class="col-xl-3 col-lg-4 col-md-4 col-12">
+														<div class="single-product" >
+															<div class="product-img" style="width: 200px !important; height: 350px !important; object-fit: cover !important;">
+																<a href="{% url 'product' product.id %}">
+																	<img class="" src="{{product.photo_main.url}}" width="550" height="750" alt="#">
+																	<img class="hover-img" src="{{product.photo_main.url}}" width="550" height="750" alt="#">
+																	{% if product.is_new %}
+																		<span class="new">New</span>
+																	{% endif %}
+																	{% if product.discount > 0 %}
+																		<span class="price-dec">{{product.discount}}% Off</span>
+																	{% endif %}
+																	{% if product.is_hot %}
+																		<span class="out-of-stock">Hot</span>																																																			
+																	{% endif %}
+
+																</a>
+																<div class="button-head">
+																	<div class="product-action">
+																		<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+																		<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																		<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+																	</div>
+																	<div class="product-action-2">
+																		<button style="background: none; border:none;" data-product={{product.id}} data-action="add" title="Add to cart" class="update-cart" >Add to cart</button>
+																	</div>
+																	
+																</div>
+															</div>
+															<div class="product-content">
+																<h3><a href="{% url 'product' product.id %}">{{product.name}}</a></h3>
+																<div class="product-price">
+																	{% if product.discount > 0 %}
+																		<span class="old">{{product.old_price|floatformat:2}}</span>
+																	{% endif %}
+																	<span>${{product.unitprice|floatformat:2}}</span>																	
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor %}
+											{% else %}
+
+											{% endif %}
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+    </div>
+	<!-- End Product Area -->
+		
+	<!-- Start Most Popular -->
+	<div class="product-area most-popular section">
+        <div class="container">
+            <div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>Hot Item</h2>
+					</div>
+				</div>
+            </div>
+            <div class="row">
+				
+                <div class="col-12">
+                    <div class="owl-carousel popular-slider">
+						<!-- Start Single Product -->
+						{% if products %}
+							{% for product in products %}
+								{% if product.is_hot %}
+									<div class="single-product">
+										<div class="product-img" style="width: 200px !important; height: 350px !important; object-fit: cover !important;">
+											<a href="{% url 'product' product.id %}">
+												<img class="default-img" src="{{product.photo_main.url}}" alt="{{product.name}}">
+												<img class="hover-img" src="{{product.photo_main.url}}" alt="{{product.name}}">
+												<span class="out-of-stock">Hot</span>
+											</a>
+											<div class="button-head">
+												<div class="product-action">
+													<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+													<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+													<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
+												</div>
+												<div class="product-action-2">
+													<button style="background: none; border:none;" data-product={{product.id}} data-action="add" title="Add to cart" class="update-cart" >Add to cart</button>													
+												</div>
+											</div>
+										</div>
+										<div class="product-content">
+											<h3><a href="{% url 'product' product.id %}">{{product.name}}</a></h3>
+											<div class="product-price">																																				
+												{% if product.discount > 0 %}
+													<span class="old">{{product.old_price|floatformat:2}}</span>
+												{% endif %}
+												<span>${{product.unitprice|floatformat:2}}</span>
+											</div>
+										</div>
+									</div>									
+								{% endif %}
+							{% endfor %}
+						{% endif %}																	
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- End Most Popular Area -->
+
+	<!-- Start Shop Blog  -->
+	<section class="shop-blog section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<h2>From Our Blog</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% for blog in blogs %}
+					<div class="col-lg-4 col-md-6 col-12">
+						<!-- Start Single Blog  -->
+						<div class="shop-single-blog">
+							<img src="{{blog.image.url}}" alt="#">
+							<div class="content">
+								<p class="date">{{blog.created | timesince}} ago</p>
+								<a href="{% url 'blog' blog.id %}" class="title">{{blog.title}}</a>
+								<a href="{% url 'blog' blog.id %}" class="more-btn">Continue Reading</a>
+							</div>
+						</div>
+						<!-- End Single Blog  -->
+					</div>
+				{% endfor %}				
+			</div>
+		</div>
+	</section>
+	<!-- End Shop Blog  -->
+	
+	<!-- Start Shop Services Area -->
+	<section class="shop-services section home">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-rocket"></i>
+						<h4>Free shiping</h4>
+						<p>Orders over $100</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-reload"></i>
+						<h4>Free Return</h4>
+						<p>Within 30 days returns</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-lock"></i>
+						<h4>Sucure Payment</h4>
+						<p>100% secure payment</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-tag"></i>
+						<h4>Best Peice</h4>
+						<p>Guaranteed price</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Shop Services Area -->
+	
+	<!-- Start Shop Newsletter  -->
+	<section class="shop-newsletter section">
+		<div class="container">
+			<div class="inner-top">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 col-12">
+						<!-- Start Newsletter Inner -->
+						<div class="inner">
+							<h4>Newsletter</h4>
+							<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+							<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+								<input name="EMAIL" placeholder="Your email address" required="" type="email">
+								<button class="btn">Subscribe</button>
+							</form>
+						</div>
+						<!-- End Newsletter Inner -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Shop Newsletter -->
+	    
+{% endblock %}

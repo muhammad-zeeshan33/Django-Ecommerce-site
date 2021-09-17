@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content  %}
+
+	<!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="blog-single.html">Blog Single Sidebar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+        
+    <!-- Start Blog Single -->
+    <section class="blog-single section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <div class="blog-single-main">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="image">
+                                    <img src="{{blog.image.url}}" alt="#">
+                                </div>
+                                <div class="blog-detail">
+                                    <h2 class="blog-title">{{blog.title}}</h2>
+                                    <div class="blog-meta">
+                                        <span class="author"><a href="#"><i class="fa fa-user"></i>By {{blog.author.last_name}} (admin)</a><a href="#"><i class="fa fa-calendar"></i>{{blog.created|timesince}}</a><a href="#"><i class="fa fa-comments"></i>Comment ({{noOfComments}})</a></span>
+                                    </div>
+                                    <div class="content">
+                                        <p>{{blog.body|truncatewords:50}}</p>
+                                        <blockquote> <i class="fa fa-quote-left"></i> {{blog.body|truncatewords:50}}</blockquote>
+                                        <p>{{blog.body|truncatewords:100}}</p>
+                                        <p>{{blog.body|truncatewords:70}}</p>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="comments">
+                                    <h3 class="comment-title">Comments ({{noOfComments}})</h3>
+                                    <!-- Single Comment -->
+
+                                    {% for comment in comments %}
+                                        <div class="single-comment">
+                                            <img src="{% static 'images/men.gif' %}" alt="#">
+                                            <div class="content">
+                                                <h4>{{comment.user.first_name}} {{comment.user.last_name}} <span>{{comment.commented_at|timesince}} ago</span></h4>
+                                                <p>{{comment.comment}}</p>
+                                                <div class="button">
+                                                    <a href="#" class="btn"><i class="fa fa-reply" aria-hidden="true"></i>Reply</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>									
+                            </div>											
+                            <div class="col-12">			
+                                <div class="reply">
+                                    <div class="reply-head">
+                                        <h2 class="reply-title">Leave a Comment</h2>
+                                        <!-- Comment Form -->
+                                        <form class="form" method="POST" action="{% url 'comment' %}">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <input type="hidden" value="{{blog.id}}" name="blog_id">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Your Name<span>*</span></label>
+                                                        <input type="text" name="name" value="{{request.user.first_name}} {{request.user.last_name}}" placeholder="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label>Your Email<span>*</span></label>
+                                                        <input type="email" name="email" value="{{request.user.email}}" placeholder="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Your Message<span>*</span></label>
+                                                        <textarea name="message"  placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group button">
+                                                        <button type="submit" class="btn">Post comment</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- End Comment Form -->
+                                    </div>
+                                </div>			
+                            </div>			
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="main-sidebar">
+                        <!-- Single Widget -->
+                        <div class="single-widget search">
+                            <div class="form">
+                                <input type="email" placeholder="Search Here...">
+                                <a class="button" href="#"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <!--/ End Single Widget -->                      
+                        <!-- Single Widget -->
+                        <div class="single-widget recent-post">
+                            <h3 class="title">Recent post</h3>
+                            <!-- Single Post -->
+                            {% for blog in blogs %}
+                                <div class="single-post">
+                                    <div class="image">
+                                        <img src="{{blog.image.url}}" style="max-width: 80px; max-height: 80px; object-fit:cover;" alt="#">
+                                    </div>
+                                    <div class="content">
+                                        <h5><a href="{% url 'blog' blog.id %}">{{blog.title}}</a></h5>
+                                        <ul class="comment">
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i>{{blog.created|timesince}}</li>
+                                            <li><i class="fa fa-commenting-o" aria-hidden="true"></i>{{blog.get_comments}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--/ End Single Widget -->
+                        <!-- Single Widget -->
+                        <!--/ End Single Widget -->
+                        <!-- Single Widget -->
+                        <div class="single-widget side-tags">
+                            <h3 class="title">Tags</h3>
+                            <ul class="tag">
+                                <li><a href="#">business</a></li>
+                                <li><a href="#">wordpress</a></li>
+                                <li><a href="#">html</a></li>
+                                <li><a href="#">multipurpose</a></li>
+                                <li><a href="#">education</a></li>
+                                <li><a href="#">template</a></li>
+                                <li><a href="#">Ecommerce</a></li>
+                            </ul>
+                        </div>
+                        <!--/ End Single Widget -->
+                        <!-- Single Widget -->
+                        <div class="single-widget newsletter">
+                            <h3 class="title">Newslatter</h3>
+                            <div class="letter-inner">
+                                <h4>Subscribe & get news <br> latest updates.</h4>
+                                <div class="form-inner">
+                                    <input type="email" placeholder="Enter your email">
+                                    <a href="#">Submit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/ End Single Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Blog Single -->
+{% endblock %}

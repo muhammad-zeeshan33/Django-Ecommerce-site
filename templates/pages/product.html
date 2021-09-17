@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="bread-inner">                                        
+                    <ul class="bread-list">
+                        <li><a href="{% url 'index' %}">Home<i class="ti-arrow-right"></i></a></li>
+                        <li ><a href="{% url 'shop' %}">Shop Grid</a><i class="ti-arrow-right"></i></li>
+                        <li ><a href="#">{{product.name}}</a></li>
+                    </ul>                    
+                </div>
+            </div>
+        </div>       												                           
+    </div>    
+</div>
+
+
+<section id="item-single " class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">                                    
+                    <img src="{{product.photo_main.url}}" alt="" style="max-width: 500px; max-height: 700px; object-fit: cover;" class="mb-3">
+                    <!-- Thumbnails -->
+                    <div class="row mb-5 thumbs">                          
+                    {% if product.photo_1 %}
+                        <div class="col-md-2">
+                            <a  href="{{product.photo_1.url}}" data-lightbox="home-images">
+                            <img src="{{product.photo_1.url}}" alt="" class="img-fluid">
+                            </a>
+                        </div>                          
+                    {% endif %}
+                    {% if product.photo_2 %}
+                      <div class="col-md-2">
+                        <a    href="product.photo_2.url" data-lightbox="home-images">
+                          <img src="product.photo_2.url" alt="" class="img-fluid">
+                        </a>
+                      </div>              
+                      {% endif %}           
+                      {% if product.photo_2 %}
+                      <div class="col-md-3">
+                        <a    href="product.photo_3.url" data-lightbox="home-images">
+                          <img src="product.photo_3.url" alt="" class="img-fluid">
+                        </a>
+                      </div>              
+                      {% endif %}           
+                      {% if product.photo_4 %}
+                      <div class="col-md-2">
+                        <a    href="product.photo_4.url" data-lightbox="home-images">
+                          <img src="product.photo_4.url" alt="" class="img-fluid">
+                        </a>
+                      </div>              
+                      {% endif %}           
+                      {% if product.photo_5 %}
+                      <div class="col-md-2">
+                        <a    href="product.photo_5.url" data-lightbox="home-images">
+                          <img src="product.photo_5.url" alt="" class="img-fluid">
+                        </a>
+                      </div>              
+                      {% endif %}           
+                      {% if product.photo_6 %}
+                      <div class="col-md-2">
+                        <a    href="product.photo_6.url" data-lightbox="home-images">
+                          <img src="product.photo_6.url" alt="" class="img-fluid">
+                        </a>
+                      </div>              
+                      {% endif %}                                                                    
+                    </div>                                                
+                </div>
+            <div class="col-12 col-lg-6 ">
+                <h2 class=" text-center font-weight-bold">{{product.name}}</h2>
+                <div class="text-center">Top Rated 5.0 <i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i></div>
+                <h5 class="mt-5">Hot Features</h5>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, modi.</li>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, modi.</li>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, modi.</li>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, modi.</li>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, modi.</li>
+                <h5 class="mt-5"> Product Description</h5>                
+                <p>{{product.description}}</p>
+                <div class="d-flex">
+                    <button class="btn btn-sm "><i class="fa fa-shopping-cart"></i> Add to cart</button>
+                    <button class="btn btn-sm  ml-auto "> Buy ${{product.unitprice}}</button>
+                </div>
+            </div>             
+                <div class="row my-5 ml-auto">    
+                    <div class="col d-flex ">
+                        <a class="ml-auto" href="{% url 'shop' %}">Continue Shopping</a>
+                    </div>
+                </div>                               
+        </div>
+        <hr>
+        <div class="row">
+            <div class="container">
+                <div class="col-12 col-lg-6">
+                    <h5>Reviews <i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i> 4.7 </h5>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex">
+                                <img src="{% static 'images/client-1 (1).jpg' %}" width="40" height="40" class="rounded-circle" alt=""  style="max-width: 40px; max-height: 40px ; object-fit:cover">
+                                <div class="">
+                                    <h6 class="mt-2 ml-2">Kathy Joseph</h6>
+                                    <p class="ml-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt quos tenetur in dolores voluptas eveniet pariatur aliquam alias natus autem.</p>
+                                    <div class="d-flex">
+                                        <a href="#" style="font-size: 13px" class="ml-auto text-success">Useful <i class="fa fa-thumbs-up text-success"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex">
+                                <img src="{% static 'images/client-1 (2).jpg' %}" width="40" height="40" class="rounded-circle" alt=""  style="max-width: 40px; max-height: 40px ; object-fit:cover">
+                                <div class="">
+                                    <h6 class="mt-2 ml-2">Kayle Brown</h6>
+                                    <p class="ml-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt quos tenetur in dolores voluptas eveniet pariatur aliquam alias natus autem.</p>
+                                    <div class="d-flex">
+                                        <a href="#" style="font-size: 13px" class="ml-auto text-success">Useful <i class="fa fa-thumbs-up text-success"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex">
+                                <img src="{% static 'images/buyer2.jpg' %}" width="40" height="40" class="rounded-circle" alt=""  style="max-width: 40px; max-height: 40px ; object-fit:cover">
+                                <div class="">
+                                    <h6 class="mt-2 ml-2">Joseph Amre</h6>
+                                    <p class="ml-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt quos tenetur in dolores voluptas eveniet pariatur aliquam alias natus autem.</p>
+                                    <div class="d-flex">
+                                        <a href="#" style="font-size: 13px" class="ml-auto text-success">Useful <i class="fa fa-thumbs-up text-success"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex">
+                                <img src="{% static 'images/buyer3.jpg' %}"  style="max-width: 40px; max-height: 40px ; object-fit:cover" width="40" height="40" class="rounded-circle" alt="">
+                                <div class="">
+                                    <h6 class="mt-2 ml-2">John Doe</h6>
+                                    <p class="ml-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt quos tenetur in dolores voluptas eveniet pariatur aliquam alias natus autem.</p>
+                                    <div class="d-flex">
+                                        <a href="#" style="font-size: 13px" class="ml-auto text-success">Useful <i class="fa fa-thumbs-up text-success"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="d-flex">
+                                <img src="{% static 'images/buyer5.jpg' %}" style="max-width: 40px; max-height: 40px ; object-fit:cover" class="rounded-circle" alt="">
+                                <div class="">
+                                    <h6 class="mt-2 ml-2">Katherine Fernandes</h6>
+                                    <p class="ml-2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt quos tenetur in dolores voluptas eveniet pariatur aliquam alias natus autem.</p>
+                                    <div class="d-flex">
+                                        <a href="#" style="font-size: 13px" class="ml-auto text-success">Useful <i class="fa fa-thumbs-up text-success"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+{% endblock %}
